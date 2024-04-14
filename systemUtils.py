@@ -43,9 +43,9 @@ class SystemUtils(object):
 
     def display_system_info(self):
         """ Function to display system info"""
-        print("*"*30)
-        print("{:>20}".format("Displaying System Info"))
-        print("*"*30)
+        print("*"*60)
+        print("{:>40}".format("Displaying System Info"))
+        print("*"*60)
         print("- {:<20}: {}".format("System Name", self.system_name))
         print("- {:<20}: {}".format("System Vendor", self.system_vendor))
         print("- {:<20}: {}".format("System Platform", self.system_platform))

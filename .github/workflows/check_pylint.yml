@@ -4,9 +4,7 @@
 name: Pylint check
 
 #event which triggers this workflow
-on:
-    pull_request:
-        types: [edited, synchronize]
+on: workflow_call
 
 #list of jobs to run
 jobs:

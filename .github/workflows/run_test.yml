@@ -4,17 +4,11 @@
 name: Run system test
 
 #event which triggers this workflow
-on:
-    pull_request:
-        types: [edited, synchronize]
+on: workflow_call
 
 #list of jobs to run
 jobs:
     #name of a jobs defined here
-
-    #checkout the code
-    #Checkout-Code:
-        #uses: 
     
     #run the test
     Run-System-Test:

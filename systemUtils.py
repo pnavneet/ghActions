@@ -41,7 +41,7 @@ class SystemUtils(object):
         self.system_memory = "TBD"
 
 
-    def _display_system_info(self):
+    def display_system_info(self):
         """ Function to display system info"""
         print("*"*30)
         print("{:>20}".format("Displaying System Info"))

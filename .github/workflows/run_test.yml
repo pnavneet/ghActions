@@ -1,0 +1,26 @@
+# file which will run set of test
+
+#name of workflow
+name: Run system test
+
+#event which triggers this workflow
+on:
+    pull_request:
+        types: [edited, synchronize]
+
+#list of jobs to run
+jobs:
+    #name of a jobs defined here
+
+    #checkout the code
+    #Checkout-Code:
+        #uses: 
+    
+    #run the test
+    Run-System-Test:
+        #where will this run
+        runs-on: ubuntu-latest
+        #list of steps to be executed
+        steps:
+            - name: Run System Test
+              run: echo "Work in progress"

@@ -1,22 +1,20 @@
-# file which will check pylint errors on .py files
+# file which will check and update PR description
 
 #name of workflow
-name: Pylint check
+name: PR Description
 
 #event which triggers this workflow
 on:
     pull_request:
-        types: [edited, synchronize]
+        types: [opened]
 
 #list of jobs to run
 jobs:
-    #name of a jobs defined here
-
-    #check pylint on .py files
-    Pylint-Check:
+    #name of a job
+    PR-Description-Check:
         #where will this run
         runs-on: ubuntu-latest
         #list of steps to be executed
         steps:
-            - name: Run pylint check
+            - name: Get PR Description
               run: echo "Work in progress"

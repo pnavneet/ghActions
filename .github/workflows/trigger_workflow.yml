@@ -1,0 +1,20 @@
+# file which will trigger overall workflow. This will use all internal workflows which are created separately
+
+#name of workflow
+name: Main workflow
+
+#event which triggers this workflow
+on:
+    pull_request:
+        types: [edited, synchronize]
+
+#list of jobs to run
+jobs:
+    #name of a jobs defined here
+
+    call-pylint-check:
+        uses: ./.github/workflows/check_pylint.yml
+
+    call-run-system-test:
+        uses: ./.github/workflows/run_test.yml
+    

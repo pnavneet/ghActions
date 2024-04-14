@@ -16,5 +16,11 @@ jobs:
         runs-on: ubuntu-latest
         #list of steps to be executed
         steps:
+            - name: Get code
+              uses: actions/checkout@v4
+
+            - name: Check branch
+              run: git branch
+
             - name: Run pylint check
               run: echo "Work in progress"

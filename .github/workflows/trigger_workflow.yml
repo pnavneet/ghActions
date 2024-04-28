@@ -9,6 +9,9 @@ on:
         types: [edited, synchronize]
 
 #list of jobs to run
+#Here these two or any more jobs if defined will run in parallel
+#So if we need to run them sequentially, may be because we want to check if 1st works or not, then will need to change the flow
+#2nd job will run if 1st job is success. Need to add this code.
 jobs:
     #name of a jobs defined here
 
@@ -16,5 +19,6 @@ jobs:
         uses: ./.github/workflows/check_pylint.yml
 
     call-run-system-test:
+        needs: call-pylint-check
         uses: ./.github/workflows/run_test.yml
     

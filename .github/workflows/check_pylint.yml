@@ -19,7 +19,7 @@ jobs:
             - name: Get code
               uses: actions/checkout@v4
               with:
-                ref: ${{ github.head_ref }}
+                ref: ${{ github.head_ref }} #source branch name
                 
 
             - name: Check branch

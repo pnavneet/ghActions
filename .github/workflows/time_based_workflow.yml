@@ -8,7 +8,7 @@ name: Time based workflow
 #event which triggers this workflow
 on:
     schedule:
-        - cron: '27 20 * * *'
+        - cron: '22 2 * * *'
     
 
 #list of jobs to run

@@ -22,8 +22,8 @@ jobs:
                 ref: ${{ github.head_ref }} #source branch name
                 
 
-            - name: Check branch
-              run: git branch
+            - name: Display Github Context
+              run: echo "${{ toJson(github) }}"
 
             - name: Run pylint check
               run: echo "Work in progress"

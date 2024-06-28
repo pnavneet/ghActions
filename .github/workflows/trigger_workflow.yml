@@ -11,9 +11,8 @@ on:
         paths:
             - 'Tests/*'
             - 'Validation/*'
-        paths-ignore:
-            - 'Validation/Automation/*'
-            - 'Validation/Tools/*'
+            - '!Validation/Automation/*'
+            - '!Validation/Tools/*'
 
 #list of jobs to run
 #Here these two or any more jobs if defined will run in parallel

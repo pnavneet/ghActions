@@ -6,6 +6,7 @@ name: Main workflow
 #event which triggers this workflow
 on:
     pull_request:
+        branches: [main]
         types: [opened, synchronize]
 
 #list of jobs to run

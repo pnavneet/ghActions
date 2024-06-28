@@ -9,8 +9,6 @@ class TestSystem(object):
     def run_system_test(self):
         self.systemObj.get_system_details()
         self.systemObj.display_system_info()
-        self.systemObj.system_cpu #dummy print
-
 
 if __name__ == '__main__':
     obj = TestSystem()

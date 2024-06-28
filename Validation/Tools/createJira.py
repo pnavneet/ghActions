@@ -1,2 +1,2 @@
 # this utility will automate JIRA creation
-# dummy file
+# dummy file only

@@ -1,10 +1,10 @@
 # Script to get system details
-import Validation.systemUtils as systemUtils
+from Validation.systemUtils import SystemUtils
 
 class TestSystem(object):
 
     def __init__(self):
-        self.systemObj = systemUtils.SystemUtils()
+        self.systemObj = SystemUtils()
 
     def run_system_test(self):
         self.systemObj.get_system_details()

@@ -6,12 +6,13 @@ name: Main workflow
 #event which triggers this workflow
 on:
     pull_request:
-        types: [edited, synchronize]
+        branches: [main]
+        types: [opened, synchronize]
 
 #list of jobs to run
 #Here these two or any more jobs if defined will run in parallel
 #So if we need to run them sequentially, may be because we want to check if 1st works or not, then will need to change the flow
-#2nd job will run if 1st job is success. Need to add this code.
+#2nd job will run if 1st job is success. And for this, we need to use 'needs' key variable and provide the 1st or previous job (though it can be any job within jobs)
 jobs:
     #name of a jobs defined here
 

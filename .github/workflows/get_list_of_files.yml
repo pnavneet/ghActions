@@ -30,5 +30,6 @@ jobs:
              if [ $? -ne 0 ]; then
               echo "Fail to get list of changed files. Please check the error"
               exit 1
+             fi
              echo "changed_files=$changed_files" >> $GITHUB_ENV
              echo "Changed Files: $changed_files"

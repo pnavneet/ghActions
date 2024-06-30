@@ -8,9 +8,11 @@ on:
     pull_request:
         branches: [main]
         types: [opened, synchronize]
+        #Below ensures that workflow will be triggered only when files from Tests or Validation are present in PR
         paths:
             - 'Tests/*'
             - 'Validation/*'
+            - '.github/**'
             - '!Validation/Automation/*'
             - '!Validation/Tools/*'
 
@@ -20,7 +22,6 @@ on:
 #2nd job will run if 1st job is success. And for this, we need to use 'needs' key variable and provide the 1st or previous job (though it can be any job within jobs)
 jobs:
     #name of a jobs defined here
-
     call-pylint-check:
         uses: ./.github/workflows/check_pylint.yml
 

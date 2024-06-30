@@ -12,6 +12,7 @@ on:
         paths:
             - 'Tests/*'
             - 'Validation/*'
+            - '.github/**'
             - '!Validation/Automation/*'
             - '!Validation/Tools/*'
 

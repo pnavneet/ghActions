@@ -17,4 +17,14 @@ jobs:
         #list of steps to be executed
         steps:
             - name: Run System Test
-              run: echo "Work in progress"
+              id: system_test
+              run: |
+                - echo "Work in progress"
+                - exit 1
+
+
+            - name: Create package
+              id: create_package
+              #create package only if system test is passed
+              if: ${{ steps.system_test.conclusion == 'success' }}
+              run: echo "create package"

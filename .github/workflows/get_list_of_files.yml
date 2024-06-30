@@ -26,7 +26,7 @@ jobs:
             id: changed_files
             run: |
              echo "Getting list of files changed between ${{ github.head_ref }} and ${{ github.base_ref }}"
-             changed_files=$(git diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | tr '\n' ' ')
+             changed_files=$(gitt diff --name-only ${{ github.base_ref }} ${{ github.head_ref }} | tr '\n' ' ')
              echo $?
              if [ $? -ne 0 ]; then
               echo "Fail to get list of changed files. Please check the error"

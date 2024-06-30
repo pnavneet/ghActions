@@ -26,5 +26,5 @@ jobs:
             - name: Create package
               id: create_package
               #create package only if system test is passed
-              if: ${{ steps.system_test.conclusion == 'success' }}
+              if: ${{ failure() && steps.system_test.conclusion == 'failure' }}
               run: echo "create package"

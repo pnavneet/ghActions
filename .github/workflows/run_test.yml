@@ -15,16 +15,15 @@ jobs:
         #where will this run
         runs-on: ubuntu-latest
         #list of steps to be executed
+        #to simulate failure in step-1, use exit 1
         steps:
             - name: Run System Test
               id: system_test
               run: |
                 - echo "Work in progress"
-                - exit 1
-
 
             - name: Create package
               id: create_package
               #create package only if system test is passed
-              if: ${{ failure() && steps.system_test.conclusion == 'failure' }}
+              if: ${{ steps.system_test.conclusion == 'success' }}
               run: echo "create package"

@@ -14,6 +14,7 @@ class SystemUtils(object):
         self.system_os = None
         self.system_cpu = None
         self.system_memory = None
+        self.pcie = None
 
 
     def _run_cmd(self, cmd):
@@ -39,6 +40,9 @@ class SystemUtils(object):
 
     def _get_system_memory(self):
         self.system_memory = "TBD"
+    
+    def _read_pcie_register(self):
+        pass
 
 
     def display_system_info(self):

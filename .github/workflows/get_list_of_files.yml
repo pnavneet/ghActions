@@ -10,6 +10,8 @@ on: workflow_call
 jobs:
     List-of-files-in-pull-request:
         runs-on: ubuntu-latest
+        outputs:
+          relevantFilesChanged: ${{ steps.check_changed_files.outputs.relevantFilesChanged }}
         steps:
           - name: Get code
             uses: actions/checkout@v4
@@ -33,3 +35,16 @@ jobs:
              fi
              echo "changed_files=$changed_files" >> $GITHUB_ENV
              echo "Changed Files: $changed_files"
+
+          - name: Check changed files
+            id: check_changed_files
+            run: |
+             if echo "$changed_files" | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
+              echo "Changes in Tests or Validation libs detected"
+              echo "relevantFilesChanged=true" >> $GITHUB_ENV
+             else
+              echo "No files changed in Tests or Validation. Will skip other jobs. Exiting"
+              echo "relevantFilesChanged=false" >> $GITHUB_ENV
+              exit 0
+             fi
+           

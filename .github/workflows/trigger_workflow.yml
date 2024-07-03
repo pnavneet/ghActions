@@ -27,8 +27,15 @@ jobs:
 
     call-pylint-check:
         needs: files-in-pr
-        if: needs.files-in-pr.outputs.relevantFilesChanged == 'true'
-        uses: ./.github/workflows/check_pylint.yml
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print relevant changes value
+              run: |
+               echo "Relevant files changed ${{ needs.files-in-pr.outputs.relevantFilesChanged }}"
+
+            - name: Run pylint
+              if: ${{ needs.files-in-pr.outputs.relevantFilesChanged == 'true' }}
+              uses: ./.github/workflows/check_pylint.yml
 
     call-run-system-test:
         needs: call-pylint-check

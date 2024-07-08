@@ -1,0 +1,15 @@
+name: Access output from other workflow
+
+on: [push]
+
+jobs:
+  call-reusable-job-ouput-workflow:
+    uses: ./.github/workflows/reusable_job_output.yml
+
+  print-output:
+    needs: call-reusable-job-ouput-workflow
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print job1Step2Output
+        run: |
+          echo "Output from reusable workflow: ${{ needs.call-reusable-job-ouput-workflow.outputs.job1Step2Output }}"

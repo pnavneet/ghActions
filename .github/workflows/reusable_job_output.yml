@@ -1,6 +1,17 @@
 name: Example Workflow
 
-on: [push]
+on:
+  workflow_call:
+    #Map workflow outputs to job outputs
+    outputs:
+      firstword:
+          description: "The first output string"
+          value: ${{ jobs.job-1.outputs.output1 }}
+
+      secondword:
+          description: "The second output string"
+          value: ${{ jobs.job-1.outputs.output2 }}
+          
 env:
     changed_files: true
 
@@ -9,10 +20,17 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       job1Step2Output: ${{ steps.step2.outputs.job1Step2Output }}
+      output1: ${{ steps.step-1.outputs.firstword }}
+      output2: ${{ steps.step-1.outputs.secondword }}
 
     steps:
       - name: Step 1 of Job 1
-        run: echo "This is step 1 of job 1"
+        id: step-1
+        run: |
+          echo "This is step 1 of job 1"
+          echo "firstword=hello" >> "$GITHUB_OUTPUT"
+          echo "secondword=world" >> "$GITHUB_OUTPUT"
+
 
       - name: Step 2 of Job 1
         id: step2

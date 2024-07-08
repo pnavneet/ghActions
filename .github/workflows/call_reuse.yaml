@@ -1,6 +1,6 @@
 name: Access output from other workflow
 
-on: [push]
+on: workflow_call
 
 jobs:
   call-reusable-job-ouput-workflow:
@@ -12,4 +12,4 @@ jobs:
     steps:
       - name: Print job1Step2Output
         run: |
-          echo "Output from reusable workflow: ${{ needs.call-reusable-job-ouput-workflow.outputs.job1Step2Output }}"
+          echo "Output from reusable workflow: Work in Progress"

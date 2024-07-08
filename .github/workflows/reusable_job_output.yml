@@ -15,7 +15,6 @@ jobs:
       - name: Step 2 of Job 1
         id: step2
         run: |
-          echo "job1Step2Output1=Hello World Again" >> $GITHUB_OUTPUT
           echo "job1Step2Output=Hello World" >> $GITHUB_OUTPUT
 
       - name: Step 3 of Job 1

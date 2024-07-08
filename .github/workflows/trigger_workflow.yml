@@ -26,7 +26,7 @@ jobs:
         uses: ./.github/workflows/get_list_of_files.yml
     
     valid_files:
-        runs-on: ubuntue-latest
+        runs-on: ubuntu-latest
         needs: files_in_pr
         if: ${{ needs.files_in_pr.outputs.relevantFilesChanged == 'true' }}
         steps:

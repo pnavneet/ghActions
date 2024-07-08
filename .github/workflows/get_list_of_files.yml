@@ -10,14 +10,14 @@ on:
     outputs:
       relevantFilesChanged:
         description: "Variable which will store boolean for valid files changed"
-        value: ${{ jobs.List-of-files-in-pull-request.outputs.output1 }}
+        value: ${{ jobs.List_of_files_in_pull_request.outputs.output1 }}
 
 #list of jobs to run
 jobs:
-    List-of-files-in-pull-request:
+    List_of_files_in_pull_request:
         runs-on: ubuntu-latest
         outputs:
-          #relevantFilesChanged: 
+          changedFiles: ${{ steps.changed_files.outputs.changed_files }}         
           output1: ${{ steps.check_changed_files.outputs.relevantFilesChanged }}
         steps:
           - name: Get code
@@ -40,18 +40,20 @@ jobs:
               echo "No files changed in the PR. Something wrong in this step."
               exit 1
              fi
-             echo "changed_files=$changed_files" >> $GITHUB_ENV
+             #echo "changed_files=$changed_files" >> $GITHUB_ENV
+             echo "changed_files=$changed_files" >> $GITHUB_OUTPUT
              echo "Changed Files: $changed_files"
 
           - name: Check changed files
             id: check_changed_files
             run: |
-             if echo "$changed_files" | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
+             #if echo "$changed_files" | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
+             if echo "${{ needs.List_of_files_in_pull_request.outputs.changedFiles }}" | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
               echo "Changes in Tests or Validation libs detected"
-              echo "relevantFilesChanged=true" >> $GITHUB_ENV
+              echo 'relevantFilesChanged=true' >> $GITHUB_OUTPUT
              else
               echo "No files changed in Tests or Validation. Will skip other jobs. Exiting"
-              echo "relevantFilesChanged=false" >> $GITHUB_ENV
+              echo 'relevantFilesChanged=false' >> $GITHUB_OUTPUT
               exit 0
              fi
            

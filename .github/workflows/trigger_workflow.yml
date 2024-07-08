@@ -22,21 +22,21 @@ on:
 #2nd job will run if 1st job is success. And for this, we need to use 'needs' key variable and provide the 1st or previous job (though it can be any job within jobs)
 jobs:
     #name of a jobs defined here
-    files-in-pr:
+    files_in_pr:
         uses: ./.github/workflows/get_list_of_files.yml
 
-    call-pylint-check:
-        needs: files-in-pr
+    call_pylint_check:
+        needs: files_in_pr
         runs-on: ubuntu-latest
         steps:
             - name: Print relevant changes value
-              run: echo ${{ needs.files-in-pr.outputs.relevantFilesChanged }}
+              run: echo "${{ needs.files_in_pr.outputs.output1 }}"
 
             - name: Run pylint
-              if: ${{ needs.files-in-pr.outputs.relevantFilesChanged == 'true' }}
+              if: echo "${{ needs.files_in_pr.outputs.output1 }}" == 'true'
               uses: ./.github/workflows/check_pylint.yml
 
-    call-run-system-test:
-        needs: call-pylint-check
+    call_run_system_test:
+        needs: call_pylint_check
         uses: ./.github/workflows/run_test.yml
     

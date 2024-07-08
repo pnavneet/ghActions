@@ -31,7 +31,7 @@ jobs:
         steps:
             - name: Print relevant changes value
               run: |
-               echo "Relevant files changed ${{ needs.files-in-pr.outputs.relevantFilesChanged }}"
+               echo "Relevant files changed ${{ needs.files-in-pr.outputs.relevantFilesChanged }}" 
 
             - name: Run pylint
               if: ${{ needs.files-in-pr.outputs.relevantFilesChanged == 'true' }}

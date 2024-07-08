@@ -48,7 +48,7 @@ jobs:
           - name: Check changed files
             id: check_changed_files
             run: |
-             echo 
+             echo "${{ needs.List_of_files_in_pull_request.outputs.stepOutput }}"
              if echo "${{ needs.List_of_files_in_pull_request.outputs.changedFiles }}" | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
               echo "Changes in Tests or Validation libs detected"
               echo 'relevantFilesChanged=true' >> $GITHUB_OUTPUT

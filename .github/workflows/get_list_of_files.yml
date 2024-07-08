@@ -41,9 +41,9 @@ jobs:
               echo "No files changed in the PR. Something wrong in this step."
               exit 1
              fi
-             echo "list_of_files=$changed_files" >> $GITHUB_OUTPUT
+             echo "list_of_files=$changed_files" >> "$GITHUB_OUTPUT"
              echo "Changed Files: $changed_files"
-             echo "stepOutput=Hello" >> $GITHUB_OUTPUT
+             echo "stepOutput=Hello" >> "$GITHUB_OUTPUT"
 
           - name: Check changed files
             id: check_changed_files

@@ -30,7 +30,7 @@ jobs:
         needs: files_in_pr
         steps:
             - run: |
-                if echo "${{ needs.files_in_pr.outputs.relevantFilesChanged }}" == 'true'; then
+                if echo "${{ needs.files_in_pr.outputs.relevantFilesChanged }}" == 'false'; then
                   echo Valid files present
                 else
                   echo Valid files are not present. Skip rest of the jobs

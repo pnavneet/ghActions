@@ -1,0 +1,54 @@
+name: Example Workflow
+
+on:
+  workflow_call:
+    #firstword and second word will be used in different workflow.
+    #In order to use output of this workflow in other workflow, we need to define/map these outputs at workflow level
+    outputs:
+      firstword:
+          description: "The first output string"
+          value: ${{ jobs.job-1.outputs.output1 }}
+
+      secondword:
+          description: "The second output string"
+          value: ${{ jobs.job-1.outputs.output2 }}
+          
+
+jobs:
+  job-1:
+    runs-on: ubuntu-latest
+    outputs:
+      job1Step2Output: ${{ steps.step2.outputs.job1Step2Output }}
+      output1: ${{ steps.step-1.outputs.firstword }}
+      output2: ${{ steps.step-1.outputs.secondword }}
+
+    steps:
+      - name: Step 1 of Job 1
+        id: step-1
+        run: |
+          echo "This is step 1 of job 1"
+          echo "firstword=hello" >> "$GITHUB_OUTPUT"
+          echo "secondword=world" >> "$GITHUB_OUTPUT"
+
+
+      - name: Step 2 of Job 1
+        id: step2
+        run: |
+          echo "job1Step2Output=Hello World" >> "$GITHUB_OUTPUT"
+
+      - name: Step 3 of Job 1
+        id: step3
+        run: |
+          echo "Output from job-1 step-2: ${{ steps.step2.outputs.job1Step2Output }}"
+
+  job-2:
+    runs-on: ubuntu-latest
+    needs: job-1
+
+    steps:
+      - name: Step 1 of Job 2
+        run: echo "This is step 1 of job 2"
+
+      - name: Step 2 of Job 2
+        run: |
+          echo "Output from job-1 step-2: ${{ needs.job-1.outputs.job1Step2Output }}"

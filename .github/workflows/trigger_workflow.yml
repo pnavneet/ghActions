@@ -24,16 +24,17 @@ jobs:
     #name of a jobs defined here
     files_in_pr:
         uses: ./.github/workflows/get_list_of_files.yml
+    
+    valid_files:
+        runs-on: ubuntue-latest
+        needs: files_in_pr
+        if: ${{ needs.files_in_pr.outputs.relevantFilesChanged == 'true' }}
+        steps:
+            - run: echo Valid files present
 
     call_pylint_check:
-        runs-on: ubuntu-latest
-        needs: files_in_pr
-        steps:
-            - name: Print relevant changes value
-              run: echo ${{ needs.files_in_pr.outputs.relevantFilesChanged }}
-
-            - name: Run pylint
-              uses: ./.github/workflows/check_pylint.yml
+        needs: valid_files
+        uses: ./.github/workflows/check_pylint.yml
 
     call_run_system_test:
         needs: call_pylint_check

@@ -1,6 +1,6 @@
 name: Access output from other workflow
 
-on: workflow_call
+on: push
 
 jobs:
   call-reusable-job-ouput-workflow:

@@ -12,10 +12,16 @@ on:
       secondword:
           description: "The second output string"
           value: ${{ jobs.job-1.outputs.output2 }}
-          
+
+env:
+    IP_ADDRESS: 127.0.0.1
+    PORT: 22
+    USERNAME: neo
 
 jobs:
   job-1:
+    env:
+        PORT: 23
     runs-on: ubuntu-latest
     outputs:
       job1Step2Output: ${{ steps.step2.outputs.job1Step2Output }}
@@ -40,6 +46,11 @@ jobs:
         id: step3
         run: |
           echo "Output from job-1 step-2: ${{ steps.step2.outputs.job1Step2Output }}"
+    
+      - name: Step-4 Env variables
+        id: env
+        run: |
+          echo Running service on ${{ env.IP_ADDRESS }}:${{ env.PORT }} with username: ${{ env.USERNAME }}
 
   job-2:
     runs-on: ubuntu-latest

@@ -16,7 +16,7 @@ on:
 env:
     IP_ADDRESS: 127.0.0.1
     PORT: 22
-    USERNAME: neo
+    USERNAME: ${{ secrets.USERNAME }}
 
 jobs:
   job-1:

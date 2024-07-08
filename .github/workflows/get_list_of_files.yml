@@ -17,8 +17,7 @@ jobs:
     List_of_files_in_pull_request:
         runs-on: ubuntu-latest
         outputs:
-          stepOutput: ${{ steps.files_changed.outputs.stepOutput }}
-          changedFiles: ${{ steps.files_changed.outputs.list_of_files }}         
+          list_of_files: ${{ steps.files_changed.outputs.list_of_files }}
           output1: ${{ steps.check_changed_files.outputs.relevantFilesChanged }}
         steps:
           - name: Get code
@@ -43,18 +42,15 @@ jobs:
              fi
              echo "list_of_files=$changed_files" >> "$GITHUB_OUTPUT"
              echo "Changed Files: $changed_files"
-             echo "stepOutput=Hello" >> "$GITHUB_OUTPUT"
 
           - name: Check changed files
             id: check_changed_files
             run: |
-             echo "${{ needs.List_of_files_in_pull_request.outputs.stepOutput }}"
-             if echo "${{ needs.List_of_files_in_pull_request.outputs.list_of_files }}" | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
+             if echo ${{ steps.files_changed.outputs.list_of_files }} | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
               echo "Changes in Tests or Validation libs detected"
-              echo 'relevantFilesChanged=true' >> $GITHUB_OUTPUT
+              echo "relevantFilesChanged=true" >> $GITHUB_OUTPUT
              else
               echo "No files changed in Tests or Validation. Will skip other jobs. Exiting"
-              echo 'relevantFilesChanged=false' >> $GITHUB_OUTPUT
-              exit 0
+              echo "relevantFilesChanged=false" >> $GITHUB_OUTPUT
              fi
            

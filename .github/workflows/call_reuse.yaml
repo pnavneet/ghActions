@@ -9,5 +9,8 @@ jobs:
   print-output:
     runs-on: ubuntu-latest
     needs: call-reusable-job-ouput-workflow
+    if: ${{ needs.call-reusable-job-ouput-workflow.outputs.firstword == 'hello' }} 
     steps:
-      - run: echo ${{ needs.call-reusable-job-ouput-workflow.outputs.firstword }}
+      - run: |
+          echo ${{ needs.call-reusable-job-ouput-workflow.outputs.firstword }}
+          

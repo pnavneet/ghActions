@@ -23,7 +23,7 @@ jobs:
                 
 
             - name: Display Github Context
-              run: echo "${{ toJson(github) }}"
+              run: echo "${{ toJson(github.env) }}"
 
             - name: Run pylint check
               run: echo "Work in progress"

@@ -51,6 +51,7 @@ jobs:
         id: env
         run: |
           echo Running service on ${{ env.IP_ADDRESS }}:${{ env.PORT }} with username: ${{ env.USERNAME }}
+          echo "${{ toJson(github.env) }}"
 
   job-2:
     runs-on: ubuntu-latest

@@ -44,6 +44,9 @@ class SystemUtils(object):
     def _read_pcie_register(self):
         pass
 
+    def _get_pcie_max_gen_speed(self):
+        pass
+
 
     def display_system_info(self):
         """ Function to display system info"""

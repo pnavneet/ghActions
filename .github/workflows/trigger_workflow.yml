@@ -28,7 +28,7 @@ jobs:
     valid_files:
         runs-on: ubuntu-latest
         needs: files_in_pr
-        if: ${{ needs.files_in_pr.outputs.relevantFilesChanged == 'false' }}
+        if: ${{ needs.files_in_pr.outputs.relevantFilesChanged == 'true' }}
         steps:
             - run: echo "Valid files present, will run pylint"
 

@@ -4,14 +4,21 @@
 name: Changed files
 
 #event which triggers this workflow
-on: workflow_call
+on: 
+  workflow_call:
+    # Map workflow outputs to job output
+    outputs:
+      relevantFilesChanged:
+        description: "Variable which will store boolean for valid files changed"
+        value: ${{ jobs.List-of-files-in-pull-request.outputs.output1 }}
 
 #list of jobs to run
 jobs:
     List-of-files-in-pull-request:
         runs-on: ubuntu-latest
         outputs:
-          relevantFilesChanged: ${{ steps.check_changed_files.outputs.relevantFilesChanged }}
+          #relevantFilesChanged: 
+          output1: ${{ steps.check_changed_files.outputs.relevantFilesChanged }}
         steps:
           - name: Get code
             uses: actions/checkout@v4

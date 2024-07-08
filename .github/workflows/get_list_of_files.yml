@@ -17,6 +17,7 @@ jobs:
     List_of_files_in_pull_request:
         runs-on: ubuntu-latest
         outputs:
+          stepOutput: ${{ steps.changed_files.outputs.stepOutput }}
           changedFiles: ${{ steps.changed_files.outputs.changed_files }}         
           output1: ${{ steps.check_changed_files.outputs.relevantFilesChanged }}
         steps:
@@ -40,13 +41,14 @@ jobs:
               echo "No files changed in the PR. Something wrong in this step."
               exit 1
              fi
-             #echo "changed_files=$changed_files" >> $GITHUB_ENV
              echo "changed_files=$changed_files" >> $GITHUB_OUTPUT
              echo "Changed Files: $changed_files"
+             echo "stepOutput=Hello" >> $GITHUB_OUTPUT
 
           - name: Check changed files
             id: check_changed_files
             run: |
+             echo 
              if echo "${{ needs.List_of_files_in_pull_request.outputs.changedFiles }}" | grep "Tests/" || echo "$changed_files" | grep "Validation/.*\.py"; then
               echo "Changes in Tests or Validation libs detected"
               echo 'relevantFilesChanged=true' >> $GITHUB_OUTPUT

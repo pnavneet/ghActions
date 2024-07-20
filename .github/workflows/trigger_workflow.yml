@@ -63,7 +63,9 @@ jobs:
             - name: Set env variables
               run: |
                 echo "PR_NUMBER=${{ github.event.pull_request.number }}" >> $GITHUB_ENV
+                echo "PR_LINK=${{ github.event.pull_request.html_url }}" >> $GITHUB_ENV
                 echo "GITHUB_REPO=${{ github.repository }}" >> $GITHUB_ENV
+                echo "GITHUB_REPO_OWNER"=${{ github.repository_owner }} >> $GITHUB_ENV
                 echo "GITHUB_RUN_ID=${{ github.run_id }}" >> $GITHUB_ENV
                 echo "PYLINT_RESULT=${{ needs.call_pylint_check.outputs.pylint_result || 'failed' }}" >> $GITHUB_ENV
                 echo "SYSTEM_TEST_RESULT=${{ needs.call_run_system_test.outputs.test_result || 'skipped' }}" >> $GITHUB_ENV
@@ -71,7 +73,9 @@ jobs:
             - name: Display env variables (for debugging)
               run: |
                 echo "PR_NUMBER=$PR_NUMBER"
+                echo "PR_LINK"=$PR_LINK
                 echo "GITHUB_REPO=$GITHUB_REPO"
+                echo "GITHUB_REPO_OWNER=$GITHUB_REPO_OWNER"
                 echo "GITHUB_RUN_ID=$GITHUB_RUN_ID"
                 echo "PYLINT_RESULT=$PYLINT_RESULT"
                 echo "SYSTEM_TEST_RESULT=$SYSTEM_TEST_RESULT"
@@ -79,10 +83,13 @@ jobs:
 
             - name: Get results from jobs and update excel
               run: |
-                echo "Will run python script here. TBD"
+                echo "Run ci results script"
+                python Validation/Tools/ci_results.py
               env:
                 PR_NUMBER: ${{ env.PR_NUMBER }}
+                PR_LINK: ${{ env.PR_LINK }}
                 GITHUB_REPO: ${{ env.GITHUB_REPO }}
+                GITHUB_REPO_OWNER: ${{ env.GITHUB_REPO_OWNER }}
                 GITHUB_RUN_ID: ${{ env.GITHUB_RUN_ID }}
                 PYLINT_RESULT: ${{ env.PYLINT_RESULT }}
                 SYSTEM_TEST_RESULT: ${{ env.SYSTEM_TEST_RESULT }}

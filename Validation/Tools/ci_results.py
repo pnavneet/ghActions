@@ -72,6 +72,9 @@ class CI_Results(object):
         #save excel
         self.ci_file_obj.save(self.ci_results_excel_file)
 
+        #display excel content
+        self.displayExcelContent()
+
     def displayExcelContent(self):
         print("Display CI results from excel")
         for row in self.ci_file.iter_rows(values_only=True):

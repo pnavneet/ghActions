@@ -15,6 +15,7 @@ class SystemUtils(object):
         self.system_cpu = None
         self.system_memory = None
         self.pcie = None
+        self.pcie_speed = None
 
 
     def _run_cmd(self, cmd):

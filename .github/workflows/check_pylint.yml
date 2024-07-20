@@ -4,7 +4,12 @@
 name: Pylint check
 
 #event which triggers this workflow
-on: workflow_call
+on: 
+  workflow_call: 
+    outputs:
+      pylint_result:
+        description: "Variable to store pylint result"
+        value: ${{ jobs.Pylint-Check.outputs.pylint_status }}
 
 #list of jobs to run
 jobs:
@@ -14,6 +19,8 @@ jobs:
     Pylint-Check:
         #where will this run
         runs-on: ubuntu-latest
+        outputs:
+          pylint_status: ${{ steps.pylint.outputs.pylint_status }}
         #list of steps to be executed
         steps:
             - name: Get code
@@ -23,7 +30,10 @@ jobs:
                 
 
             - name: Display Github Context
-              run: echo "${{ toJson(github.env) }}"
+              run: echo "${{ toJson(github) }}"
 
             - name: Run pylint check
-              run: echo "Work in progress"
+              id: pylint
+              run: |
+                echo "Running dummy pylint"
+                echo "pylint_status=true" >> $GIHUB_OUTPUT

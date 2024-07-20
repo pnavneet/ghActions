@@ -36,4 +36,5 @@ jobs:
               id: pylint
               run: |
                 echo "Running dummy pylint"
+                exit 1 #fail here
                 echo "pylint_status=true" >> $GITHUB_OUTPUT

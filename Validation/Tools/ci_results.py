@@ -7,7 +7,7 @@ from openpyxl import Workbook, load_workbook
 class CI_Results(object):
     def __init__(self):
         #self.ci_results_excel_file = "ci_results.xlsx"
-        self.ci_results_excel_file = "ci_results_new.csv"
+        self.ci_results_excel_file = "ci_results.csv"
         self.ci_file_obj = None
         self.ci_file = None
         self.pr_link = self.__get_pr_link()
@@ -71,7 +71,7 @@ class CI_Results(object):
         with open(self.ci_results_excel_file, mode='a', newline='') as self.ci_file_obj:
             self.ci_file = csv.writer(self.ci_file_obj)
             #write header if file does not exist
-            if not os.path.exists(self.ci_results_excel_file):
+            if not os.path.isfile(self.ci_results_excel_file):
                 self.ci_file.writerow(["PR_LINK", "WORKFLOW_LINK", "RESULT", "FAILURE_REASON"])
             else:
                 print("File already exists")

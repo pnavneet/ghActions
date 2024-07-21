@@ -4,7 +4,12 @@
 name: Run system test
 
 #event which triggers this workflow
-on: workflow_call
+on: 
+    workflow_call:
+        outputs:
+            test_result:
+                description: "Variable to hold test result status"
+                value: ${{ jobs.Run-System-Test.outputs.test_status }}
 
 #list of jobs to run
 jobs:
@@ -14,6 +19,8 @@ jobs:
     Run-System-Test:
         #where will this run
         runs-on: ubuntu-latest
+        outputs:
+            test_status: ${{ steps.test_result.outputs.test_output }}
         #list of steps to be executed
         #to simulate failure in step-1, use exit 1
         steps:
@@ -24,9 +31,14 @@ jobs:
                 echo "Run test 1"
                 echo "Run test 2"
 
-
             - name: Create package
               id: create_package
               #create package only if system test is passed
               if: ${{ steps.system_test.conclusion == 'success' }}
               run: echo "create package"
+            
+            - name: Test Results
+              id: test_result
+              run: |
+                echo "Getting dummy test results"
+                echo "test_output=pass" >> $GITHUB_OUTPUT

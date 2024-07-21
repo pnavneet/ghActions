@@ -79,9 +79,9 @@ class CI_Results(object):
 
     def display_csv_file_content(self):
         print("Display CI results from excel")
-        with open(self.ci_results_excel_file, 'r') as self.ci_file_obj:
-            self.ci_file = csv.reader(self.ci_file_obj)
-            for row in self.ci_file:
+        with open(self.ci_results_excel_file, 'r') as fh:
+            file_read = csv.reader(fh)
+            for row in file_read:
                 print(', '.join(row))
 
 

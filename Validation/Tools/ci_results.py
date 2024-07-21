@@ -74,7 +74,7 @@ class CI_Results(object):
             if not os.path.exists(self.ci_results_excel_file):
                 self.ci_file.writerow(["PR_LINK", "WORKFLOW_LINK", "RESULT", "FAILURE_REASON"])
             #write the results
-            self.ci_file.writerow([self.pr_link, self.workflow_link, self.overall_result, self.failure_reason])
+            self.ci_file.writerows([self.pr_link, self.workflow_link, self.overall_result, self.failure_reason])
 
 
     def display_csv_file_content(self):

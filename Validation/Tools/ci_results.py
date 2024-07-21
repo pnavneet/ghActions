@@ -7,7 +7,7 @@ from openpyxl import Workbook, load_workbook
 class CI_Results(object):
     def __init__(self):
         #self.ci_results_excel_file = "ci_results.xlsx"
-        self.ci_results_excel_file = "ci_results.csv"
+        self.ci_results_excel_file = "ci_results_new.csv"
         self.ci_file_obj = None
         self.ci_file = None
         self.pr_link = self.__get_pr_link()

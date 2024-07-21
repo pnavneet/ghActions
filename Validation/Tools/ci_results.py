@@ -67,15 +67,13 @@ class CI_Results(object):
 
 
     def write_to_csv_file(self):
+        file_exists = os.path.isfile(self.ci_results_excel_file)
         #create file if it does not exists
         with open(self.ci_results_excel_file, mode='a', newline='') as self.ci_file_obj:
             self.ci_file = csv.writer(self.ci_file_obj)
-            #write header if file does not exist
-            if not os.path.isfile(self.ci_results_excel_file):
+            #write header if file did not exist already
+            if not file_exists:
                 self.ci_file.writerow(["PR_LINK", "WORKFLOW_LINK", "RESULT", "FAILURE_REASON"])
-            else:
-                self.ci_file.writerow(["PR_LINK", "WORKFLOW_LINK", "RESULT", "FAILURE_REASON"])
-                print("File already exists")
             #write the results
             self.ci_file.writerows([[self.pr_link, self.workflow_link, self.overall_result, self.failure_reason]])
 

@@ -25,7 +25,7 @@ class CI_Results(object):
         gh_repo = os.getenv('GITHUB_REPO')
         gh_repo_owner = os.getenv('GITHUB_REPO_OWNER')
         gh_run_id = os.getenv('GITHUB_RUN_ID')
-        link = "https://github.com/{}/{}/actions/runs/{}".format(gh_repo, gh_repo_owner, gh_run_id)
+        link = "https://github.com/{}/actions/runs/{}".format(gh_repo, gh_run_id)
         return link
 
 

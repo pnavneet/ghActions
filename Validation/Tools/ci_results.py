@@ -1,12 +1,13 @@
 #Script to update CI results in an excel file
 import os
-#import csv
-from openpyxl import Workbook, load_workbook
+import csv
+#from openpyxl import Workbook, load_workbook
 
 
 class CI_Results(object):
     def __init__(self):
-        self.ci_results_excel_file = "ci_results.xlsx"
+        #self.ci_results_excel_file = "ci_results.xlsx"
+        self.ci_results_excel_file = "ci_results.csv"
         self.ci_file_obj = None
         self.ci_file = None
         self.pr_link = self.__get_pr_link()
@@ -47,15 +48,13 @@ class CI_Results(object):
             self.ci_file_obj = load_workbook(self.ci_results_excel_file)
             self.ci_file = self.ci_file_obj.active
         else:
-            #create new file and add row attributes
+            #Below code using openpyxl module
             self.ci_file_obj = Workbook()
             self.ci_file = self.ci_file_obj.active
             self.ci_file.append(["PR_LINK", "WORKFLOW_LINK", "RESULT", "FAILURE_REASON"])
 
-    def updateExcel(self):
-        self.display_ci_results() #only for debug purpose
-        self.__get_excel_file()
 
+    def update_ci_result_variables(self):
         #Update overall result & failure reason if any of the CI workflow step failed.
         if self.pylint_result == 'failed':
             self.overall_result = 'FAIL'
@@ -65,15 +64,42 @@ class CI_Results(object):
             self.failure_reason = 'system_test'
         else:
             print("All CI checks passed")
-        
-        #Update excel
-        self.ci_file.append([self.pr_link, self.workflow_link, self.overall_result, self.failure_reason])
 
-        #save excel
-        self.ci_file_obj.save(self.ci_results_excel_file)
 
-        #display excel content
-        self.displayExcelContent()
+    def write_to_csv_file(self):
+        #create file if it does not exists
+        with open(self.ci_results_excel_file, mode='a', newline='') as self.ci_file_obj:
+            self.ci_file = csv.writer(self.ci_file_obj)
+            #write header if file does not exist
+            if not os.path.exists(self.ci_results_excel_file):
+                self.ci_file.writerow(["PR_LINK", "WORKFLOW_LINK", "RESULT", "FAILURE_REASON"])
+            #write the results
+            self.ci_file.writerow([self.pr_link, self.workflow_link, self.overall_result, self.failure_reason])
+
+
+    def display_csv_file_content(self):
+        with open(self.ci_results_excel_file, 'r') as self.ci_file_obj:
+            self.ci_file = csv.reader(self.ci_file_obj)
+            for row in self.ci_file:
+                print(', '.join(row))
+
+
+    def updateExcel(self):
+        self.display_ci_results() #only for debug purpose
+        self.update_ci_result_variables()
+
+        self.write_to_csv_file()
+        self.display_csv_file_content()
+
+        # # Below code is using openpyxl module to create, write and save excel file
+        # self.__get_excel_file() 
+        # #Update excel
+        # self.ci_file.append([self.pr_link, self.workflow_link, self.overall_result, self.failure_reason])
+        # #save excel
+        # self.ci_file_obj.save(self.ci_results_excel_file)
+        # #display excel content
+        # self.displayExcelContent()
+
 
     def displayExcelContent(self):
         print("Display CI results from excel")

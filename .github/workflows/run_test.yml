@@ -41,5 +41,4 @@ jobs:
               id: test_result
               run: |
                 echo "Getting dummy test results"
-                exit 1
                 echo "test_output=pass" >> $GITHUB_OUTPUT

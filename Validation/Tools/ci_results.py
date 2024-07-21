@@ -1,7 +1,7 @@
 #Script to update CI results in an excel file
 import os
 import csv
-#from openpyxl import Workbook, load_workbook
+from openpyxl import Workbook, load_workbook
 
 
 class CI_Results(object):
@@ -78,6 +78,7 @@ class CI_Results(object):
 
 
     def display_csv_file_content(self):
+        print("Display CI results from excel")
         with open(self.ci_results_excel_file, 'r') as self.ci_file_obj:
             self.ci_file = csv.reader(self.ci_file_obj)
             for row in self.ci_file:

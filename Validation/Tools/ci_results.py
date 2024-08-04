@@ -63,7 +63,7 @@ class CI_Results(object):
             self.overall_result = 'FAIL'
             self.failure_reason = 'system_test'
         else:
-            print("All CI checks passed")
+            print("All CI checks passed or skipped")
 
 
     def write_to_csv_file(self):

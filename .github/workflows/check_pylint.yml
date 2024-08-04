@@ -26,8 +26,7 @@ jobs:
             - name: Get code
               uses: actions/checkout@v4
               with:
-                ref: ${{ github.head_ref }} #source branch name
-                
+                fetch-depth: 0 # fetch all history for all tags and branches
 
             - name: Display Github Context
               run: echo "${{ toJson(github) }}"
@@ -37,3 +36,13 @@ jobs:
               run: |
                 echo "Running dummy pylint"
                 echo "pylint_status=pass" >> $GITHUB_OUTPUT
+            
+            - name: Post comment on PR
+              run: |
+                COMMENT="pylint check ${{ steps.pylint.outputs.pylint_status }}"
+                gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT"
+            
+            - name: Fail if pylint failed
+              if: ${{ steps.pylint.outputs.pylint_status == 'fail' }}
+              run: exit 1
+              

@@ -38,6 +38,8 @@ jobs:
                 echo "pylint_status=pass" >> $GITHUB_OUTPUT
             
             - name: Post comment on PR
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
               run: |
                 COMMENT="pylint check ${{ steps.pylint.outputs.pylint_status }}"
                 gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT"

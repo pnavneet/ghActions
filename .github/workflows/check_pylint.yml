@@ -45,6 +45,6 @@ jobs:
                 gh pr comment ${{ github.event.pull_request.number }} --body "$COMMENT"
             
             - name: Fail if pylint failed
-              if: ${{ steps.pylint.outputs.pylint_status == 'fail' }}
+              if: ${{ steps.pylint.outputs.pylint_status == 'failed' }}
               run: exit 1
               

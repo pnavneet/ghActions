@@ -56,10 +56,12 @@ class CI_Results(object):
 
     def update_ci_result_variables(self):
         #Update overall result & failure reason if any of the CI workflow step failed.
-        if self.pylint_result == 'failed':
+        #if self.pylint_result == 'failed':
+        if self.pylint_result == 'failure':
             self.overall_result = 'FAIL'
             self.failure_reason = 'pylint'
-        elif self.system_test_result == 'failed':
+        #elif self.system_test_result == 'failed':
+        elif self.system_test_result == 'failure':
             self.overall_result = 'FAIL'
             self.failure_reason = 'system_test'
         else:

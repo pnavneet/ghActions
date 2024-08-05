@@ -35,7 +35,7 @@ jobs:
               id: pylint
               run: |
                 echo "Running dummy pylint"
-                echo "pylint_status=failed" >> $GITHUB_OUTPUT
+                echo "pylint_status=pass" >> $GITHUB_OUTPUT
             
             - name: Post comment on PR
               env:

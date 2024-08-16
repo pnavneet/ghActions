@@ -1,0 +1,25 @@
+# workflow which will be triggered on a scheduled time basis (UTC)
+# Example: Run this workflow every Thursday at 6pm PDT (* 1 * * 4)
+# Github action will work on UTC basis, so 6pm PDT in UTC will be 1am and Thursday is every 4th day of the week
+
+#NOTE: Below code worked. So commenting out the file.
+
+#name of workflow
+name: Time based workflow
+
+#event which triggers this workflow
+on:
+    schedule:
+        - cron: "*/5 * * * *"
+    
+
+#list of jobs to run
+jobs:
+    Testing-time-based:
+        runs-on: ubuntu-latest
+        if: ${{ github.ref == 'refs/heads/feature/time_base_workflow' }}        
+        steps:
+            - name: Hello world
+              run: |
+                echo "Hello there"
+                echo "running only from ${{ github.ref }} every 5 minutes"
